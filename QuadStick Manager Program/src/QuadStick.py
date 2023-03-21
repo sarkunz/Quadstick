@@ -65,6 +65,7 @@ from mouse import *
 from googledrive import *
 from textstrings import *
 
+## make this an env file
 DEBUG = False
 settings = qsflash.settings
 preferences = qsflash.preferences
@@ -73,6 +74,9 @@ original_stdout = sys.stdout
 original_stderr = sys.stderr
 logfile = None
 
+SERIAL_PORT_SOCKET = None
+
+## remove???
 # Global variables for devices
 VG = None
 QS = None
@@ -82,7 +86,6 @@ TIR = None
 MOUSE = None
 H = None   # HIDHide handler
 
-SERIAL_PORT_SOCKET = None
 
 # global variables
 
