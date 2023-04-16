@@ -584,6 +584,7 @@ class QuadStickPreferences(wx.Frame):
         self.notebook.SetMinSize((-1, 500))
         sizer_2.Add(self.notebook, 4, wx.EXPAND, 0)
 
+        #####GAME FILES TAB######
         self.notebook_game_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook_game_files.SetMinSize((1176, 496))
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
@@ -659,6 +660,7 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_48.Add((0, 0), 0, 0, 0)
 
+        #####JOYSTICK TAB######
         self.notebook_joystick = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_joystick, _("Joystick"))
 
@@ -715,6 +717,7 @@ class QuadStickPreferences(wx.Frame):
         self.joystick_preference_grid.SetToolTip(_("Preferences File values"))
         sizer_54.Add(self.joystick_preference_grid, 1, wx.ALL | wx.EXPAND, 0)
 
+        #####MISC TAB######
         self.notebook_misc = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_misc, _("Misc"))
 
@@ -971,6 +974,7 @@ class QuadStickPreferences(wx.Frame):
         self.checkbox_start_minimized.SetToolTip(_("Start QMP minimized."))
         sizer_1.Add(self.checkbox_start_minimized, 0, 0, 0)
 
+        #####FIRMWARE TAB######
         self.notebook_firmware = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_firmware, _("Firmware"))
 
@@ -1007,6 +1011,7 @@ class QuadStickPreferences(wx.Frame):
         self.download_selected_build = wx.Button(self.notebook_firmware, wx.ID_ANY, _("Download selected Firmware\nto QuadStick"))
         sizer_27.Add(self.download_selected_build, 1, 0, 0)
 
+        #####VOICE CONTROL TAB######
         self.notebook_pane_transcript = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_pane_transcript, _("Voice Control"))
 
@@ -1032,6 +1037,7 @@ class QuadStickPreferences(wx.Frame):
         self.grid_1.SetFont(wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_4.Add(self.grid_1, 0, wx.EXPAND, 0)
 
+        #####VOICE FILES TAB######
         self.notebook_voice_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_voice_files, _("Voice Files"))
 
@@ -1069,6 +1075,7 @@ class QuadStickPreferences(wx.Frame):
         self.panel_7 = wx.Panel(self.notebook_voice_files, wx.ID_ANY)
         sizer_25_copy.Add(self.panel_7, 1, wx.EXPAND, 0)
 
+        #####EXTERNAL POINTERS TAB######
         self.notebook_external_pointers = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_external_pointers, _("External Pointers"))
 
