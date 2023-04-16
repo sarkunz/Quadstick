@@ -623,6 +623,7 @@ class QuadStickPreferences(wx.Frame):
 
         self.online_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.online_game_files_list.SetToolTip(_("Double Click to edit. Drag over to download into to QuadStick flash."))
+        self.online_game_files_list.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL,wx.NORMAL))
         sizer_3.Add(self.online_game_files_list, 4, wx.EXPAND, 0)
 
         sizer_49 = wx.BoxSizer(wx.VERTICAL)
@@ -640,6 +641,7 @@ class QuadStickPreferences(wx.Frame):
         sizer_22.Add(sizer_8, 2, wx.EXPAND, 0)
 
         self.user_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
+        self.user_game_files_list.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL,wx.NORMAL))
         self.user_game_files_list.SetToolTip(_("Double Click to Edit.  Drag over to download into to QuadStick flash."))
         sizer_8.Add(self.user_game_files_list, 4, wx.EXPAND, 0)
 
