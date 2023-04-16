@@ -575,10 +575,15 @@ class QuadStickPreferences(wx.Frame):
         self.SetTitle(_("QuadStick"))
         self.SetToolTip(_("Change preference settings for QuadStick"))
 
+        self.biggerfont = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.NORMAL)
+        self.boldBiggerFont = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.NORMAL, wx.BOLD)
+
+
         sizer_2 = wx.BoxSizer(wx.VERTICAL)
 
         self.notebook = wx.Notebook(self, wx.ID_ANY, style=0)
         self.notebook.SetMinSize((-1, 500))
+        self.notebook.SetFont(self.biggerfont)
         sizer_2.Add(self.notebook, 4, wx.EXPAND, 0)
 
         self.notebook_game_files = wx.Panel(self.notebook, wx.ID_ANY)
@@ -586,8 +591,10 @@ class QuadStickPreferences(wx.Frame):
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
 
         sizer_22 = wx.BoxSizer(wx.HORIZONTAL)
-
+        
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_23, 2, wx.EXPAND, 0)
 
         self.list_box_csv_files = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
@@ -618,12 +625,13 @@ class QuadStickPreferences(wx.Frame):
         self.panel_18 = wx.Panel(self.notebook_game_files, wx.ID_ANY)
         sizer_63.Add(self.panel_18, 1, wx.EXPAND, 0)
 
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Quadstick Factory profiles")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_3, 2, wx.EXPAND, 0)
 
         self.online_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.online_game_files_list.SetToolTip(_("Double Click to edit. Drag over to download into to QuadStick flash."))
-        self.online_game_files_list.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL,wx.NORMAL))
         sizer_3.Add(self.online_game_files_list, 4, wx.EXPAND, 0)
 
         sizer_49 = wx.BoxSizer(wx.VERTICAL)
@@ -637,11 +645,12 @@ class QuadStickPreferences(wx.Frame):
         self.button_download_csv.SetToolTip(_("Download a game's custom CSV file into the QuadStick"))
         sizer_49.Add(self.button_download_csv, 1, wx.EXPAND, 0)
 
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_8 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("User Custom profiles")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_8, 2, wx.EXPAND, 0)
 
         self.user_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
-        self.user_game_files_list.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL,wx.NORMAL))
         self.user_game_files_list.SetToolTip(_("Double Click to Edit.  Drag over to download into to QuadStick flash."))
         sizer_8.Add(self.user_game_files_list, 4, wx.EXPAND, 0)
 
@@ -1250,6 +1259,7 @@ class QuadStickPreferences(wx.Frame):
 
         self.message_pane_panel = wx.Panel(self, wx.ID_ANY)
         self.message_pane_panel.SetMinSize((-1, 200))
+        self.message_pane_panel.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.message_pane_panel, 6, wx.EXPAND, 0)
 
         sizer_5 = wx.BoxSizer(wx.HORIZONTAL)
@@ -1258,12 +1268,15 @@ class QuadStickPreferences(wx.Frame):
         sizer_5.Add(self.text_ctrl_messages, 5, wx.EXPAND, 0)
 
         self.button_save = wx.Button(self, wx.ID_ANY, _("&Save\nPreferences\nto\nQuadStick"))
+        self.button_save.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_save, 1, wx.EXPAND, 0)
 
         self.button_cancel = wx.Button(self, wx.ID_CLOSE, "")
+        self.button_cancel.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_cancel, 1, wx.EXPAND, 0)
 
         self.button_reload = wx.Button(self, wx.ID_ANY, _("Reload\nPreferences\nfrom\nQuadStick"))
+        self.button_reload.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_reload, 1, wx.EXPAND, 0)
 
         self.message_pane_panel.SetSizer(sizer_5)
