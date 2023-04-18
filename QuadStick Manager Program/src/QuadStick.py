@@ -45,6 +45,7 @@ import urllib.request, urllib.parse, urllib.error
 import urllib.request, urllib.error, urllib.parse
 import socket
 import wx.lib.agw.pygauge as PG
+import wx.lib.agw.hyperlink as hl
 import wx.grid
 import wx.adv
 import subprocess
@@ -1301,6 +1302,38 @@ class QuadStickPreferences(wx.Frame):
         self.button_reload = wx.Button(self, wx.ID_ANY, _("Reload\nPreferences\nfrom\nQuadStick"))
         message_pane_sizer.Add(self.button_reload, 1, wx.EXPAND, 0)
 
+        #####QUADSTICK HELP TAB######
+        self.notebook_quadstick_help = wx.Panel(self.notebook, wx.ID_ANY)
+        self.notebook.AddPage(self.notebook_quadstick_help, _("Quadstick Help"))
+
+        
+        header = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Helpful Quadstick Resources"), pos=(10,10))
+        titleFont = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.BOLD) #wx.Font(16, weight=wx.BOLD)
+        header.SetFont(titleFont)
+        #set to be bold, bigger, and underlined
+        
+        bodyFont = wx.Font(13, wx.DEFAULT, wx.NORMAL, wx.NORMAL) #wx.Font(16, weight=wx.BOLD)
+        t1 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Interactive Quadstick Manual:"), pos=(10, 50))       
+        hyper1 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Manual", pos=(300,50),
+                                  URL="https://quadstick.s3.amazonaws.com/documents/user_manual/um/introduction.htm?ms=AAAA&st=MA%3D%3D&sct=MA%3D%3D&mw=MzQw")
+        t1.SetFont(bodyFont)
+        hyper1.SetFont(bodyFont)
+        
+        t2 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Quadstick Google Group:"), pos=(10, 80))     
+        hyper2 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Google Group", pos=(300,80),
+                                  URL="https://groups.google.com/g/quadstick?pli=1")
+        t2.SetFont(bodyFont)
+        hyper2.SetFont(bodyFont)
+        
+        t3 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Quadstick Intro Youtube Channel:"), pos=(10,110))     
+        hyper3 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Youtube Channel", pos=(300,110),
+                                  URL="https://www.youtube.com/watch?v=gvbf2erzIVM&list=PL1XLv6BH-ouJkZABbFiFP9qNP8ue6Nod3&index=2")
+
+        t3.SetFont(bodyFont)
+        hyper3.SetFont(bodyFont)
+        
+
+
         self.message_pane_panel.SetSizer(sizer_5)
 
         self.notebook_external_pointers.SetSizer(sizer_39)
@@ -1317,9 +1350,13 @@ class QuadStickPreferences(wx.Frame):
 
         self.notebook_game_files.SetSizer(sizer_22)
 
+        # self.quadstick_
+
         self.SetSizer(sizer_2)
 
         self.Layout()
+
+        
 
         self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.NotebookPageChangedEvent, self.notebook)
         self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.OnEditSpreadsheet, self.list_box_csv_files)
