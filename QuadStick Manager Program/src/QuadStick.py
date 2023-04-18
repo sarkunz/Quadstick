@@ -51,6 +51,8 @@ import wx.adv
 import subprocess
 import sys
 import json
+import webbrowser
+
 
 import xlsx2csv
 import qsflash
@@ -3009,10 +3011,11 @@ class QuadStickPreferences(wx.Frame):
         xlsx2csv.write_temporary_file("blue.svg", BLUE_DOT, False)
         xlsx2csv.write_temporary_file("purple.svg", PURPLE_DOT, False)
         xlsx2csv.write_temporary_file("grey.svg", GREY_DOT, False)
-        import webbrowser
         url = """file:///""" + tmp_file_path
         webbrowser.open(url, new=2)
         event.Skip()
+
+
     def PS4BootModeEvent(self, event):  # wxGlade: QuadStickPreferences.<event_handler>
         print("Event handler 'PS4BootModeEvent'")
         if self.checkbox_ps4_boot_mode.GetValue():
