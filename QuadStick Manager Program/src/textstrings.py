@@ -334,7 +334,7 @@ for i in range(maxPatterns):
    if((i >= 9 and i < 14) or (i >= 19 and i < 24)): pat[-1] = "blue"
    if((i >= 14 and i < 19) ): pat[-1] = "red "
 
-   LED_PATTERN[i+1] = "".join(['<img src="../assets/img/' + color + '.svg">' for color in pat]) #keeping 1-indexing support
+   LED_PATTERN[i+1] = "".join(['<img src="' + color + '.svg">' for color in pat]) #keeping 1-indexing support
 
 # LED_PATTERN = { #NO
 #     1:  '<img src=".../assets/img/purple.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg">',
