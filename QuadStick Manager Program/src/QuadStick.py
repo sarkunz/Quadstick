@@ -49,6 +49,7 @@ import wx.grid
 import wx.adv
 import subprocess
 import sys
+import json
 
 import xlsx2csv
 import qsflash
@@ -105,6 +106,8 @@ LIP_MIN_MAX_DIFF = 2
 # end wxGlade
 
 MOUSE_CAPTURE_LOW_PASS_FILTER = 100
+
+#TOOLTIP_STRINGS = json.load('../assets/tooltipStrings.json')
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -569,6 +572,9 @@ class UnableToSave(wx.Dialog):
 # end of class UnableToSave
 class QuadStickPreferences(wx.Frame):
     def __init__(self, *args, **kwds):
+        tooltip_texts = json.load(open("../assets/tooltipStrings.json"))
+        info_bmp = wx.Bitmap('../assets/img/circle-info-solid.png')
+
         # over write wx.Gauge widget with a modified version of PyGauge from the AGW library
         wx.Gauge = QSGauge 
         # begin wxGlade: QuadStickPreferences.__init__
@@ -594,6 +600,13 @@ class QuadStickPreferences(wx.Frame):
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
         sizer_22.Add(sizer_23, 2, wx.EXPAND, 0)
 
+        #tooltip
+        self.QProfileHelpBtm = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.QProfileHelpBtm.SetBitmap(info_bmp)
+        self.QProfileHelpBtm.SetToolTip(_(tooltip_texts["QuadstickProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.QProfileHelpBtm)   
+
         self.list_box_csv_files = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.list_box_csv_files.SetToolTip(_("Double click to Edit"))
         sizer_23.Add(self.list_box_csv_files, 4, wx.EXPAND, 0)
@@ -610,7 +623,7 @@ class QuadStickPreferences(wx.Frame):
 
         self.print_file_list = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Print file list"))
         self.print_file_list.SetToolTip(_("Opens a browser window with the list of files in the QuadStick"))
-        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)
+        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)     
 
         sizer_63 = wx.BoxSizer(wx.VERTICAL)
         sizer_31.Add(sizer_63, 1, wx.EXPAND, 0)
@@ -624,6 +637,13 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Quadstick Factory profiles")), wx.VERTICAL)
         sizer_22.Add(sizer_3, 2, wx.EXPAND, 0)
+
+        #tooltip
+        FProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        FProfileHelpBtn.SetBitmap(info_bmp)
+        FProfileHelpBtn.SetToolTip(_(tooltip_texts["FactoryProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(FProfileHelpBtn) 
 
         self.online_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.online_game_files_list.SetToolTip(_("Double Click to edit. Drag over to download into to QuadStick flash."))
@@ -642,6 +662,13 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_8 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("User Custom profiles")), wx.VERTICAL)
         sizer_22.Add(sizer_8, 2, wx.EXPAND, 0)
+
+        #tooltip
+        self.UProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.UProfileHelpBtn.SetBitmap(info_bmp)
+        self.UProfileHelpBtn.SetToolTip(_(tooltip_texts["UserProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.UProfileHelpBtn) 
 
         self.user_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.user_game_files_list.SetToolTip(_("Double Click to Edit.  Drag over to download into to QuadStick flash."))
