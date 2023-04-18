@@ -45,10 +45,12 @@ import urllib.request, urllib.parse, urllib.error
 import urllib.request, urllib.error, urllib.parse
 import socket
 import wx.lib.agw.pygauge as PG
+import wx.lib.agw.hyperlink as hl
 import wx.grid
 import wx.adv
 import subprocess
 import sys
+import json
 
 import xlsx2csv
 import qsflash
@@ -65,6 +67,7 @@ from mouse import *
 from googledrive import *
 from textstrings import *
 
+## make this an env file
 DEBUG = False
 settings = qsflash.settings
 preferences = qsflash.preferences
@@ -73,6 +76,9 @@ original_stdout = sys.stdout
 original_stderr = sys.stderr
 logfile = None
 
+SERIAL_PORT_SOCKET = None
+
+## remove???
 # Global variables for devices
 VG = None
 QS = None
@@ -82,7 +88,6 @@ TIR = None
 MOUSE = None
 H = None   # HIDHide handler
 
-SERIAL_PORT_SOCKET = None
 
 # global variables
 
@@ -102,6 +107,8 @@ LIP_MIN_MAX_DIFF = 2
 # end wxGlade
 
 MOUSE_CAPTURE_LOW_PASS_FILTER = 100
+
+#TOOLTIP_STRINGS = json.load('../assets/tooltipStrings.json')
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -566,6 +573,9 @@ class UnableToSave(wx.Dialog):
 # end of class UnableToSave
 class QuadStickPreferences(wx.Frame):
     def __init__(self, *args, **kwds):
+        tooltip_texts = json.load(open("../assets/tooltipStrings.json"))
+        info_bmp = wx.Bitmap('../assets/img/circle-info-solid.png')
+
         # over write wx.Gauge widget with a modified version of PyGauge from the AGW library
         wx.Gauge = QSGauge 
         # begin wxGlade: QuadStickPreferences.__init__
@@ -575,20 +585,35 @@ class QuadStickPreferences(wx.Frame):
         self.SetTitle(_("QuadStick"))
         self.SetToolTip(_("Change preference settings for QuadStick"))
 
+        self.biggerfont = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.NORMAL)
+        self.boldBiggerFont = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.NORMAL, wx.BOLD)
+
+
         sizer_2 = wx.BoxSizer(wx.VERTICAL)
 
         self.notebook = wx.Notebook(self, wx.ID_ANY, style=0)
         self.notebook.SetMinSize((-1, 500))
+        self.notebook.SetFont(self.biggerfont)
         sizer_2.Add(self.notebook, 4, wx.EXPAND, 0)
 
+        #####GAME FILES TAB######
         self.notebook_game_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook_game_files.SetMinSize((1176, 496))
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
 
         sizer_22 = wx.BoxSizer(wx.HORIZONTAL)
-
+        
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_23, 2, wx.EXPAND, 0)
+
+        #tooltip
+        self.QProfileHelpBtm = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.QProfileHelpBtm.SetBitmap(info_bmp)
+        self.QProfileHelpBtm.SetToolTip(_(tooltip_texts["QuadstickProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.QProfileHelpBtm)   
 
         self.list_box_csv_files = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.list_box_csv_files.SetToolTip(_("Double click to Edit"))
@@ -618,8 +643,17 @@ class QuadStickPreferences(wx.Frame):
         self.panel_18 = wx.Panel(self.notebook_game_files, wx.ID_ANY)
         sizer_63.Add(self.panel_18, 1, wx.EXPAND, 0)
 
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Quadstick Factory profiles")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_3, 2, wx.EXPAND, 0)
+
+        #tooltip
+        FProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        FProfileHelpBtn.SetBitmap(info_bmp)
+        FProfileHelpBtn.SetToolTip(_(tooltip_texts["FactoryProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(FProfileHelpBtn) 
 
         self.online_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.online_game_files_list.SetToolTip(_("Double Click to edit. Drag over to download into to QuadStick flash."))
@@ -636,8 +670,17 @@ class QuadStickPreferences(wx.Frame):
         self.button_download_csv.SetToolTip(_("Download a game's custom CSV file into the QuadStick"))
         sizer_49.Add(self.button_download_csv, 1, wx.EXPAND, 0)
 
+        self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_8 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("User Custom profiles")), wx.VERTICAL)
+        self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_8, 2, wx.EXPAND, 0)
+
+        #tooltip
+        self.UProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.UProfileHelpBtn.SetBitmap(info_bmp)
+        self.UProfileHelpBtn.SetToolTip(_(tooltip_texts["UserProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.UProfileHelpBtn) 
 
         self.user_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.user_game_files_list.SetToolTip(_("Double Click to Edit.  Drag over to download into to QuadStick flash."))
@@ -656,6 +699,7 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_48.Add((0, 0), 0, 0, 0)
 
+        #####JOYSTICK TAB######
         self.notebook_joystick = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_joystick, _("Joystick"))
 
@@ -712,6 +756,7 @@ class QuadStickPreferences(wx.Frame):
         self.joystick_preference_grid.SetToolTip(_("Preferences File values"))
         sizer_54.Add(self.joystick_preference_grid, 1, wx.ALL | wx.EXPAND, 0)
 
+        #####MISC TAB######
         self.notebook_misc = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_misc, _("Misc"))
 
@@ -968,6 +1013,7 @@ class QuadStickPreferences(wx.Frame):
         self.checkbox_start_minimized.SetToolTip(_("Start QMP minimized."))
         sizer_1.Add(self.checkbox_start_minimized, 0, 0, 0)
 
+        #####FIRMWARE TAB######
         self.notebook_firmware = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_firmware, _("Firmware"))
 
@@ -1004,6 +1050,7 @@ class QuadStickPreferences(wx.Frame):
         self.download_selected_build = wx.Button(self.notebook_firmware, wx.ID_ANY, _("Download selected Firmware\nto QuadStick"))
         sizer_27.Add(self.download_selected_build, 1, 0, 0)
 
+        #####VOICE CONTROL TAB######
         self.notebook_pane_transcript = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_pane_transcript, _("Voice Control"))
 
@@ -1029,6 +1076,7 @@ class QuadStickPreferences(wx.Frame):
         self.grid_1.SetFont(wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_4.Add(self.grid_1, 0, wx.EXPAND, 0)
 
+        #####VOICE FILES TAB######
         self.notebook_voice_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_voice_files, _("Voice Files"))
 
@@ -1066,6 +1114,7 @@ class QuadStickPreferences(wx.Frame):
         self.panel_7 = wx.Panel(self.notebook_voice_files, wx.ID_ANY)
         sizer_25_copy.Add(self.panel_7, 1, wx.EXPAND, 0)
 
+        #####EXTERNAL POINTERS TAB######
         self.notebook_external_pointers = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_external_pointers, _("External Pointers"))
 
@@ -1248,21 +1297,57 @@ class QuadStickPreferences(wx.Frame):
 
         self.message_pane_panel = wx.Panel(self, wx.ID_ANY)
         self.message_pane_panel.SetMinSize((-1, 200))
+        self.message_pane_panel.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.message_pane_panel, 6, wx.EXPAND, 0)
 
         sizer_5 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.text_ctrl_messages = wx.TextCtrl(self.message_pane_panel, wx.ID_ANY, "", style=wx.TE_CHARWRAP | wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP)
+        self.text_ctrl_messages = wx.TextCtrl(self.message_pane_panel, wx.ID_ANY, "", style=wx.TE_CHARWRAP | wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP | wx.TE_RICH)
         sizer_5.Add(self.text_ctrl_messages, 5, wx.EXPAND, 0)
 
         self.button_save = wx.Button(self, wx.ID_ANY, _("&Save\nPreferences\nto\nQuadStick"))
+        self.button_save.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_save, 1, wx.EXPAND, 0)
 
         self.button_cancel = wx.Button(self, wx.ID_CLOSE, "")
+        self.button_cancel.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_cancel, 1, wx.EXPAND, 0)
 
         self.button_reload = wx.Button(self, wx.ID_ANY, _("Reset\nPreferences\nfrom\nQuadStick"))
+        self.button_reload.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_reload, 1, wx.EXPAND, 0)
+
+        #####QUADSTICK HELP TAB######
+        self.notebook_quadstick_help = wx.Panel(self.notebook, wx.ID_ANY)
+        self.notebook.AddPage(self.notebook_quadstick_help, _("Quadstick Help"))
+
+        
+        header = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Helpful Quadstick Resources"), pos=(10,10))
+        titleFont = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.BOLD) #wx.Font(16, weight=wx.BOLD)
+        header.SetFont(titleFont)
+        #set to be bold, bigger, and underlined
+        
+        bodyFont = wx.Font(13, wx.DEFAULT, wx.NORMAL, wx.NORMAL) #wx.Font(16, weight=wx.BOLD)
+        t1 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Interactive Quadstick Manual:"), pos=(10, 50))       
+        hyper1 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Manual", pos=(300,50),
+                                  URL="https://quadstick.s3.amazonaws.com/documents/user_manual/um/introduction.htm?ms=AAAA&st=MA%3D%3D&sct=MA%3D%3D&mw=MzQw")
+        t1.SetFont(bodyFont)
+        hyper1.SetFont(bodyFont)
+        
+        t2 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Quadstick Google Group:"), pos=(10, 80))     
+        hyper2 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Google Group", pos=(300,80),
+                                  URL="https://groups.google.com/g/quadstick?pli=1")
+        t2.SetFont(bodyFont)
+        hyper2.SetFont(bodyFont)
+        
+        t3 = wx.StaticText(self.notebook_quadstick_help, wx.ID_ANY, _("Quadstick Intro Youtube Channel:"), pos=(10,110))     
+        hyper3 = hl.HyperLinkCtrl(self.notebook_quadstick_help, -1, "Youtube Channel", pos=(300,110),
+                                  URL="https://www.youtube.com/watch?v=gvbf2erzIVM&list=PL1XLv6BH-ouJkZABbFiFP9qNP8ue6Nod3&index=2")
+
+        t3.SetFont(bodyFont)
+        hyper3.SetFont(bodyFont)
+        
+
 
         self.message_pane_panel.SetSizer(sizer_5)
 
@@ -1280,9 +1365,13 @@ class QuadStickPreferences(wx.Frame):
 
         self.notebook_game_files.SetSizer(sizer_22)
 
+        # self.quadstick_
+
         self.SetSizer(sizer_2)
 
         self.Layout()
+
+        
 
         self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.NotebookPageChangedEvent, self.notebook)
         self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.OnEditSpreadsheet, self.list_box_csv_files)
@@ -1613,7 +1702,9 @@ class QuadStickPreferences(wx.Frame):
             dialog = UnableToSave(self, wx.ID_ANY, "")
             dialog.ShowModal()
             dialog.Destroy()
+            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
             self.text_ctrl_messages.AppendText("Failed to save preferences\r\n")
+            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
    
         else: # update status box
             self.text_ctrl_messages.AppendText("Preferences saved OK\r\n")
@@ -1864,8 +1955,9 @@ class QuadStickPreferences(wx.Frame):
             self.checkbox_ps4_boot_mode.Enable()
         if build_number is not None and build_number < 1301:
             if US1:
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                 self.text_ctrl_messages.AppendText("You will need to update the Firmware to use the UltraStik")
-                
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
         if vocola_installed:
             try:
                 generate_includes_vch_file()
@@ -1907,7 +1999,9 @@ class QuadStickPreferences(wx.Frame):
                         filename = self.list_box_csv_files.GetItem(selection, 1).GetText()
                         print(repr(filename))
                         if filename == 'default.csv' or filename == 'prefs.csv':
+                            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                             self.text_ctrl_messages.AppendText("Sorry, cannot remove: " + filename + "\n")
+                            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
                         else:
                             try:
                                 d = find_quadstick_drive()
@@ -1920,7 +2014,9 @@ class QuadStickPreferences(wx.Frame):
                                 #refresh list
                             except Exception as e:
                                 print("DeleteFromQuadStickEvent exception: ", repr(e))
+                                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                                 self.text_ctrl_messages.AppendText("Exception while removing: " + filename + "\n")
+                                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
                         selection = self.list_box_csv_files.GetNextSelected(selection)
             self.update_quadstick_flash_files_items()
         except Exception as e:
@@ -2092,7 +2188,9 @@ class QuadStickPreferences(wx.Frame):
                     gps.append(info)
                 settings["user_game_profiles"] = sorted(gps, key=lambda f: f['name'].lower()) # update settings with sorted list
             else:
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                 self.text_ctrl_messages.AppendText("Error: Google spreadsheet is not publicly shared or published\n" )
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
             self.update_user_game_files_list_items()
         finally:
             self.SetCursor(wx.Cursor(wx.CURSOR_DEFAULT))
@@ -2126,10 +2224,14 @@ class QuadStickPreferences(wx.Frame):
                     self.text_ctrl_messages.AppendText("Copied %s into QuadStick\n" % (info["csv_name"],))
                     self.update_quadstick_flash_files_items()
             else:
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                 self.text_ctrl_messages.AppendText("Error: Google spreadsheet is not publicly shared or published\n" )
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
             self.update_user_game_files_list_items()
         except Exception as e:
+            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
             self.text_ctrl_messages.AppendText("Error in csv_files_dropped: " + repr(e) +"\n" )
+            self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
         self.SetCursor(wx.Cursor(wx.CURSOR_DEFAULT))
 
     def DownloadCSVFileEvent(self, event):  # wxGlade: QuadStickPreferences.<event_handler>
@@ -2168,18 +2270,35 @@ class QuadStickPreferences(wx.Frame):
                     gps = self._game_profiles #factory
                 try:
                     gp = gps[item]
-                    id = gp["id"]
-                    path = urllib.parse.quote(gp["name"])
-                    d = find_quadstick_drive()
-                    print("download csv: ", id, d)
-                    if xlsx2csv.write_csv_file_for(id, d, self): # download and copy csv into quadstick
-                        if self._last_game_list_selected == self.user_game_files_list:
-                            info, wb = xlsx2csv.get_config_profile_info(id)
-                            if info:  # if the csv filename changed, update user list
-                                if gp.get("name") != info.get("name"):
-                                    gp['name'] = info['name']
-                                    self.update_user_game_files_list_items()                       
-                        self.text_ctrl_messages.AppendText("Downloaded %s into QuadStick\n" % (gp["name"],))
+                    if gp["csv_name"] == "default.csv":
+                        confirm = wx.MessageDialog(self, "Do you want to override the default configuration?", caption="Default Override", style=wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION | wx.STAY_ON_TOP )
+                        result = confirm.ShowModal()
+                        if result == wx.ID_YES:
+                            id = gp["id"]
+                            path = urllib.parse.quote(gp["name"])
+                            d = find_quadstick_drive()
+                            print("download csv: ", id, d)
+                            if xlsx2csv.write_csv_file_for(id, d, self): # download and copy csv into quadstick
+                                if self._last_game_list_selected == self.user_game_files_list:
+                                    info, wb = xlsx2csv.get_config_profile_info(id)
+                                    if info:  # if the csv filename changed, update user list
+                                        if gp.get("name") != info.get("name"):
+                                            gp['name'] = info['name']
+                                            self.update_user_game_files_list_items()                       
+                                self.text_ctrl_messages.AppendText("Downloaded %s into QuadStick\n" % (gp["name"],))
+                    else :
+                        id = gp["id"]
+                        path = urllib.parse.quote(gp["name"])
+                        d = find_quadstick_drive()
+                        print("download csv: ", id, d)
+                        if xlsx2csv.write_csv_file_for(id, d, self): # download and copy csv into quadstick
+                            if self._last_game_list_selected == self.user_game_files_list:
+                                info, wb = xlsx2csv.get_config_profile_info(id)
+                                if info:  # if the csv filename changed, update user list
+                                    if gp.get("name") != info.get("name"):
+                                        gp['name'] = info['name']
+                                        self.update_user_game_files_list_items()                       
+                            self.text_ctrl_messages.AppendText("Downloaded %s into QuadStick\n" % (gp["name"],))
                 except Exception as e:
                     print(repr(e))
                     pass
@@ -2606,7 +2725,9 @@ class QuadStickPreferences(wx.Frame):
             filename = self.list_box_csv_files.GetItem(selection, 1).GetText()
             print(repr(filename))
             if filename == 'prefs.csv': 
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", wx.Colour(255, 150, 150)))
                 self.text_ctrl_messages.AppendText("Sorry, that is not a game file. \n")
+                self.text_ctrl_messages.SetDefaultStyle(wx.TextAttr("black", "white"))
                 event.Skip()
                 return
         self.text_ctrl_messages.AppendText("Load and Run " + filename + " in QuadStick\n")
