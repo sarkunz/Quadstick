@@ -40,7 +40,6 @@ FILE_LIST_COL_4 = """</td>
 FILE_LIST_HTML_FOOTER = """  </tbody>
 </table>
 	<script type="text/javascript">
-		window.print();
 	</script>
 </html>
 """
