@@ -629,9 +629,9 @@ class QuadStickPreferences(wx.Frame):
         self.button_load_and_run.SetToolTip(_("Requires a USB, Bluetooth or serial connection to the QuadStick"))
         sizer_40.Add(self.button_load_and_run, 1, wx.EXPAND, 0)
 
-        self.print_file_list = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Print file list"))
-        self.print_file_list.SetToolTip(_("Opens a browser window with the list of files in the QuadStick"))
-        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)     
+        self.print_file_list = wx.Button(self.notebook_game_files, wx.ID_ANY, _("See Profile List and Info"))
+        self.print_file_list.SetToolTip(_("Opens a browser window with the list of files in the QuadStick and how to switch profiles on the QuadStick"))
+        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)
 
         sizer_63 = wx.BoxSizer(wx.VERTICAL)
         sizer_31.Add(sizer_63, 1, wx.EXPAND, 0)
@@ -662,7 +662,7 @@ class QuadStickPreferences(wx.Frame):
         sizer_49 = wx.BoxSizer(wx.VERTICAL)
         sizer_3.Add(sizer_49, 1, wx.EXPAND, 0)
 
-        self.button_edit_spreadsheet = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Open Configuration Spreadsheet"))
+        self.button_edit_spreadsheet = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Open Profile Spreadsheet"))
         self.button_edit_spreadsheet.SetToolTip(_("Opens browser on the selected configuration spreadsheet"))
         sizer_49.Add(self.button_edit_spreadsheet, 1, wx.EXPAND, 0)
 
@@ -689,11 +689,11 @@ class QuadStickPreferences(wx.Frame):
         sizer_48 = wx.BoxSizer(wx.VERTICAL)
         sizer_8.Add(sizer_48, 1, wx.EXPAND, 0)
 
-        self.button_add_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Add Game to User List"))
+        self.button_add_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Add Spreadsheet to Custom Profiles"))
         self.button_add_user_game.SetToolTip(_("Click button and paste URL for a custom configuration spreadsheet into the dialog box"))
         sizer_48.Add(self.button_add_user_game, 1, wx.EXPAND, 0)
 
-        self.button_remove_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Remove Game from User List"))
+        self.button_remove_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Remove Spreadsheet from Custom Profiles"))
         self.button_remove_user_game.SetToolTip(_("Removes the selected User Custom game from the list."))
         sizer_48.Add(self.button_remove_user_game, 1, wx.EXPAND, 0)
 
@@ -1313,7 +1313,7 @@ class QuadStickPreferences(wx.Frame):
         self.button_cancel.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_cancel, 1, wx.EXPAND, 0)
 
-        self.button_reload = wx.Button(self, wx.ID_ANY, _("Reload\nPreferences\nfrom\nQuadStick"))
+        self.button_reload = wx.Button(self, wx.ID_ANY, _("Reset\nPreferences\nfrom\nQuadStick"))
         self.button_reload.SetFont(self.biggerfont)
         message_pane_sizer.Add(self.button_reload, 1, wx.EXPAND, 0)
 

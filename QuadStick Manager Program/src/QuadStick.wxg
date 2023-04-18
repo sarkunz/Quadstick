@@ -84,8 +84,8 @@
                                                             <events>
                                                                 <handler event="EVT_BUTTON">PrintFileListEvent</handler>
                                                             </events>
-                                                            <tooltip>Opens a browser window with the list of files in the QuadStick</tooltip>
-                                                            <label>Print file list</label>
+                                                            <tooltip>Opens a browser window with the list of files in the QuadStick and how to switch profiles on the QuadStick</tooltip>
+                                                            <label>See Profile List and Info</label>
                                                         </object>
                                                     </object>
                                                 </object>
@@ -158,7 +158,7 @@
                                                         <handler event="EVT_BUTTON">OnEditSpreadsheet</handler>
                                                     </events>
                                                     <tooltip>Opens browser on the selected configuration spreadsheet</tooltip>
-                                                    <label>Open Configuration Spreadsheet</label>
+                                                    <label>Open Profile Spreadsheet</label>
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
@@ -214,7 +214,7 @@
                                                         <handler event="EVT_BUTTON">UserGamesAdd</handler>
                                                     </events>
                                                     <tooltip>Click button and paste URL for a custom configuration spreadsheet into the dialog box</tooltip>
-                                                    <label>Add Game to User List</label>
+                                                    <label>Add Spreadsheet to Custom Profiles</label>
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
@@ -226,7 +226,7 @@
                                                         <handler event="EVT_BUTTON">UserGamesRemove</handler>
                                                     </events>
                                                     <tooltip>Removes the selected User Custom game from the list.</tooltip>
-                                                    <label>Remove Game from User List</label>
+                                                    <label>Remove Spreadsheet from Custom Profiles</label>
                                                 </object>
                                             </object>
                                             <object class="sizerslot" />
@@ -1910,7 +1910,7 @@
                             <events>
                                 <handler event="EVT_BUTTON">ReloadFromQuadstick</handler>
                             </events>
-                            <label>Reload\nPreferences\nfrom\nQuadStick</label>
+                            <label>Reset\nPreferences\nfrom\nQuadStick</label>
                         </object>
                     </object>
                 </object>
