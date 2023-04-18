@@ -3014,6 +3014,8 @@ class QuadStickPreferences(wx.Frame):
         url = """file:///""" + tmp_file_path
         webbrowser.open(url, new=2)
         event.Skip()
+
+
     def PS4BootModeEvent(self, event):  # wxGlade: QuadStickPreferences.<event_handler>
         print("Event handler 'PS4BootModeEvent'")
         if self.checkbox_ps4_boot_mode.GetValue():
