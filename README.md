@@ -16,12 +16,13 @@ or
 
 ### To run:
 
+`cd src`
+
 `python Quadstick.py `
 
-(TODO change this to main (create))
-
+(TODO change this to main.py and move outside of src)
 
 ## To build a release
 
 run `pyinstall QuadStick.spec`
-The generagted exe will be in dist folder
+The generated exe will be in dist folder

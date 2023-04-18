@@ -49,6 +49,7 @@ import wx.grid
 import wx.adv
 import subprocess
 import sys
+import json
 
 import xlsx2csv
 import qsflash
@@ -105,6 +106,8 @@ LIP_MIN_MAX_DIFF = 2
 # end wxGlade
 
 MOUSE_CAPTURE_LOW_PASS_FILTER = 100
+
+#TOOLTIP_STRINGS = json.load('../assets/tooltipStrings.json')
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -569,6 +572,9 @@ class UnableToSave(wx.Dialog):
 # end of class UnableToSave
 class QuadStickPreferences(wx.Frame):
     def __init__(self, *args, **kwds):
+        tooltip_texts = json.load(open("../assets/tooltipStrings.json"))
+        info_bmp = wx.Bitmap('../assets/img/circle-info-solid.png')
+
         # over write wx.Gauge widget with a modified version of PyGauge from the AGW library
         wx.Gauge = QSGauge 
         # begin wxGlade: QuadStickPreferences.__init__
@@ -584,6 +590,7 @@ class QuadStickPreferences(wx.Frame):
         self.notebook.SetMinSize((-1, 500))
         sizer_2.Add(self.notebook, 4, wx.EXPAND, 0)
 
+        #####GAME FILES TAB######
         self.notebook_game_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook_game_files.SetMinSize((1176, 496))
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
@@ -592,6 +599,13 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
         sizer_22.Add(sizer_23, 2, wx.EXPAND, 0)
+
+        #tooltip
+        self.QProfileHelpBtm = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.QProfileHelpBtm.SetBitmap(info_bmp)
+        self.QProfileHelpBtm.SetToolTip(_(tooltip_texts["QuadstickProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.QProfileHelpBtm)   
 
         self.list_box_csv_files = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.list_box_csv_files.SetToolTip(_("Double click to Edit"))
@@ -609,7 +623,7 @@ class QuadStickPreferences(wx.Frame):
 
         self.print_file_list = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Print file list"))
         self.print_file_list.SetToolTip(_("Opens a browser window with the list of files in the QuadStick"))
-        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)
+        sizer_40.Add(self.print_file_list, 1, wx.EXPAND, 0)     
 
         sizer_63 = wx.BoxSizer(wx.VERTICAL)
         sizer_31.Add(sizer_63, 1, wx.EXPAND, 0)
@@ -623,6 +637,13 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Quadstick Factory profiles")), wx.VERTICAL)
         sizer_22.Add(sizer_3, 2, wx.EXPAND, 0)
+
+        #tooltip
+        FProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        FProfileHelpBtn.SetBitmap(info_bmp)
+        FProfileHelpBtn.SetToolTip(_(tooltip_texts["FactoryProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(FProfileHelpBtn) 
 
         self.online_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.online_game_files_list.SetToolTip(_("Double Click to edit. Drag over to download into to QuadStick flash."))
@@ -642,6 +663,13 @@ class QuadStickPreferences(wx.Frame):
         sizer_8 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("User Custom profiles")), wx.VERTICAL)
         sizer_22.Add(sizer_8, 2, wx.EXPAND, 0)
 
+        #tooltip
+        self.UProfileHelpBtn = wx.Button(self.notebook_game_files, size=(30,30)) 
+        self.UProfileHelpBtn.SetBitmap(info_bmp)
+        self.UProfileHelpBtn.SetToolTip(_(tooltip_texts["UserProfiles"]))
+        #bmap = self.st.GetBitmap() # get wx.Bitmap object
+        sizer_22.Add(self.UProfileHelpBtn) 
+
         self.user_game_files_list = wx.ListCtrl(self.notebook_game_files, wx.ID_ANY, style=wx.BORDER_SUNKEN | wx.LC_REPORT)
         self.user_game_files_list.SetToolTip(_("Double Click to Edit.  Drag over to download into to QuadStick flash."))
         sizer_8.Add(self.user_game_files_list, 4, wx.EXPAND, 0)
@@ -659,6 +687,7 @@ class QuadStickPreferences(wx.Frame):
 
         sizer_48.Add((0, 0), 0, 0, 0)
 
+        #####JOYSTICK TAB######
         self.notebook_joystick = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_joystick, _("Joystick"))
 
@@ -715,6 +744,7 @@ class QuadStickPreferences(wx.Frame):
         self.joystick_preference_grid.SetToolTip(_("Preferences File values"))
         sizer_54.Add(self.joystick_preference_grid, 1, wx.ALL | wx.EXPAND, 0)
 
+        #####MISC TAB######
         self.notebook_misc = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_misc, _("Misc"))
 
@@ -971,6 +1001,7 @@ class QuadStickPreferences(wx.Frame):
         self.checkbox_start_minimized.SetToolTip(_("Start QMP minimized."))
         sizer_1.Add(self.checkbox_start_minimized, 0, 0, 0)
 
+        #####FIRMWARE TAB######
         self.notebook_firmware = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_firmware, _("Firmware"))
 
@@ -1007,6 +1038,7 @@ class QuadStickPreferences(wx.Frame):
         self.download_selected_build = wx.Button(self.notebook_firmware, wx.ID_ANY, _("Download selected Firmware\nto QuadStick"))
         sizer_27.Add(self.download_selected_build, 1, 0, 0)
 
+        #####VOICE CONTROL TAB######
         self.notebook_pane_transcript = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_pane_transcript, _("Voice Control"))
 
@@ -1032,6 +1064,7 @@ class QuadStickPreferences(wx.Frame):
         self.grid_1.SetFont(wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_4.Add(self.grid_1, 0, wx.EXPAND, 0)
 
+        #####VOICE FILES TAB######
         self.notebook_voice_files = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_voice_files, _("Voice Files"))
 
@@ -1069,6 +1102,7 @@ class QuadStickPreferences(wx.Frame):
         self.panel_7 = wx.Panel(self.notebook_voice_files, wx.ID_ANY)
         sizer_25_copy.Add(self.panel_7, 1, wx.EXPAND, 0)
 
+        #####EXTERNAL POINTERS TAB######
         self.notebook_external_pointers = wx.Panel(self.notebook, wx.ID_ANY)
         self.notebook.AddPage(self.notebook_external_pointers, _("External Pointers"))
 
