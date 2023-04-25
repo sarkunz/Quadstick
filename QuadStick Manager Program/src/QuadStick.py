@@ -593,8 +593,6 @@ class QuadStickPreferences(wx.Frame):
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
 
         sizer_22 = wx.BoxSizer(wx.HORIZONTAL)
-        # sizer_22.Add(0, 500, 0)
-        # sizer_22.Add(500, 0, 0)
         
         self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
@@ -1997,7 +1995,6 @@ class QuadStickPreferences(wx.Frame):
             index += 1
         self.online_game_files_list.SetColumnWidth(0, wx.LIST_AUTOSIZE_USEHEADER) # resize column to match new items
         self.online_game_files_list.SetColumnWidth(1, wx.LIST_AUTOSIZE_USEHEADER) # resize column to match new items
-
     def update_online_voice_files_list_items(self): # updates the display widget with the current voice list
         self.online_voice_files_list.DeleteAllItems()
         index = 0
