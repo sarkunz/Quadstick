@@ -424,11 +424,13 @@ class UserGoogleDriveFolder(wx.Dialog):
         # begin wxGlade: UserGoogleDriveFolder.__init__
         kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
         wx.Dialog.__init__(self, *args, **kwds)
-        self.SetTitle(_("Add a User Game Profile Spreadsheet"))
 
-        sizer_33 = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Add a Custom User Game Profile")), wx.VERTICAL)
+        self.SetTitle(_("Add a Custom Spreadsheet"))
+        self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.NORMAL, wx.NORMAL))
 
-        self.label_9 = wx.StaticText(self, wx.ID_ANY, _("\nThere are three ways to add games to the User's Game Files list:\n\n1) Open the game profile spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. \n\n2) The URL can also be Dragged from the browser directly into the \n     User's Game Files list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: \"QuadStick->Download into QuadStick using QMP\"\n     will share the spreadsheet, add it to this list and copy the profile into the \n     QuadStick automatically."))
+        sizer_33 = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Add a Custom Spreadsheet")), wx.VERTICAL)
+
+        self.label_9 = wx.StaticText(self, wx.ID_ANY, _("\nThere are three ways to add games to the User's Custom profiles list:\n\n1) Open the game profile spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. "))
         sizer_33.Add(self.label_9, 3, wx.ALL | wx.EXPAND, 0)
 
         sizer_36 = wx.BoxSizer(wx.HORIZONTAL)
@@ -443,8 +445,12 @@ class UserGoogleDriveFolder(wx.Dialog):
         self.panel_26 = wx.Panel(self, wx.ID_ANY)
         sizer_37.Add(self.panel_26, 1, wx.EXPAND, 0)
 
-        self.google_drive_url = wx.TextCtrl(self, wx.ID_ANY, "")
+        self.google_drive_url = wx.TextCtrl(self, wx.ID_ANY, value="test", name="test")
         sizer_37.Add(self.google_drive_url, 0, wx.EXPAND, 0)
+
+        self.label_10 = wx.StaticText(self, wx.ID_ANY, _("\n2) The URL can also be Dragged from the browser directly into the \n     User's Custom proiles list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: \"QuadStick->Download into QuadStick using QMP\"\n     will share the spreadsheet, add it to this list and copy the profile into the \n     QuadStick automatically."))
+        sizer_33.Add(self.label_10, 3, wx.ALL | wx.EXPAND, 0)
+
 
         self.panel_27 = wx.Panel(self, wx.ID_ANY)
         sizer_37.Add(self.panel_27, 1, wx.EXPAND, 0)
