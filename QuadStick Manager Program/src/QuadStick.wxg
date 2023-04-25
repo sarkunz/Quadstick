@@ -157,8 +157,8 @@
                                                     <events>
                                                         <handler event="EVT_BUTTON">OnEditSpreadsheet</handler>
                                                     </events>
-                                                    <tooltip>Opens browser on the selected configuration spreadsheet</tooltip>
-                                                    <label>Open Profile Spreadsheet</label>
+                                                    <tooltip>Opens browser on the selected profile spreadsheet</tooltip>
+                                                    <label>Open Selected Spreadsheet</label>
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
@@ -213,8 +213,8 @@
                                                     <events>
                                                         <handler event="EVT_BUTTON">UserGamesAdd</handler>
                                                     </events>
-                                                    <tooltip>Click button and paste URL for a custom configuration spreadsheet into the dialog box</tooltip>
-                                                    <label>Add Spreadsheet to Custom Profiles</label>
+                                                    <tooltip>Click button and paste URL for a custom profile spreadsheet into the dialog box</tooltip>
+                                                    <label>Add Custom Spreadsheet to Profiles</label>
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
@@ -2034,17 +2034,17 @@
         </object>
     </object>
     <object class="UserGoogleDriveFolder" name="google_drive_dialog" base="EditDialog">
-        <title>Add a User Game Configuration File</title>
+        <title>Add a User Game Profile</title>
         <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
         <object class="wxStaticBoxSizer" name="sizer_33" base="EditStaticBoxSizer">
             <orient>wxVERTICAL</orient>
-            <label>Add a User Game Configuration File</label>
+            <label>Add a User Game Profile</label>
             <object class="sizeritem">
                 <option>3</option>
                 <border>0</border>
                 <flag>wxALL|wxEXPAND</flag>
                 <object class="wxStaticText" name="label_9" base="EditStaticText">
-                    <label>\nThere are three ways to add games to the User's Game Files list:\n\n1) Open the game configuration spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. \n\n2) The URL can also be Dragged from the browser directly into the \n     User's Game Files list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: "QuadStick-&gt;Download into QuadStick using QMP"\n     will share the spreadsheet, add it to this list and copy the configuration into the \n     QuadStick automatically.</label>
+                    <label>\nThere are three ways to add games to the User's Game Files list:\n\n1) Open the game profile spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. \n\n2) The URL can also be Dragged from the browser directly into the \n     User's Game Files list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: "QuadStick-&gt;Download into QuadStick using QMP"\n     will share the spreadsheet, add it to this list and copy the profile into the \n     QuadStick automatically.</label>
                     <attribute>1</attribute>
                 </object>
             </object>

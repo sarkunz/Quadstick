@@ -424,11 +424,11 @@ class UserGoogleDriveFolder(wx.Dialog):
         # begin wxGlade: UserGoogleDriveFolder.__init__
         kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
         wx.Dialog.__init__(self, *args, **kwds)
-        self.SetTitle(_("Add a User Game Configuration File"))
+        self.SetTitle(_("Add a User Game Profile Spreadsheet"))
 
-        sizer_33 = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Add a User Game Configuration File")), wx.VERTICAL)
+        sizer_33 = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Add a Custom User Game Profile")), wx.VERTICAL)
 
-        self.label_9 = wx.StaticText(self, wx.ID_ANY, _("\nThere are three ways to add games to the User's Game Files list:\n\n1) Open the game configuration spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. \n\n2) The URL can also be Dragged from the browser directly into the \n     User's Game Files list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: \"QuadStick->Download into QuadStick using QMP\"\n     will share the spreadsheet, add it to this list and copy the configuration into the \n     QuadStick automatically."))
+        self.label_9 = wx.StaticText(self, wx.ID_ANY, _("\nThere are three ways to add games to the User's Game Files list:\n\n1) Open the game profile spreadsheet in your browser and copy \n     the URL from the address bar into the box below.\n\n     The Google Spreadsheet needs to be either Shared Publicly or \n     Published to the Web in the File menu of the spreadsheet. \n\n2) The URL can also be Dragged from the browser directly into the \n     User's Game Files list to bypass this prompt.\n\n3) Invoking the spreadsheet menu: \"QuadStick->Download into QuadStick using QMP\"\n     will share the spreadsheet, add it to this list and copy the profile into the \n     QuadStick automatically."))
         sizer_33.Add(self.label_9, 3, wx.ALL | wx.EXPAND, 0)
 
         sizer_36 = wx.BoxSizer(wx.HORIZONTAL)
@@ -608,7 +608,7 @@ class QuadStickPreferences(wx.Frame):
         sizer_22 = wx.BoxSizer(wx.HORIZONTAL)
         
         self.notebook_game_files.SetFont(self.boldBiggerFont)
-        sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
+        sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Profiles downloaded to QuadStick")), wx.VERTICAL)
         self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_23, 2, wx.EXPAND, 0)
 
@@ -648,7 +648,7 @@ class QuadStickPreferences(wx.Frame):
         sizer_63.Add(self.panel_18, 1, wx.EXPAND, 0)
 
         self.notebook_game_files.SetFont(self.boldBiggerFont)
-        sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Quadstick Factory profiles")), wx.VERTICAL)
+        sizer_3 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("Premade Quadstick profiles")), wx.VERTICAL)
         self.notebook_game_files.SetFont(self.biggerfont)
         sizer_22.Add(sizer_3, 2, wx.EXPAND, 0)
 
@@ -666,13 +666,15 @@ class QuadStickPreferences(wx.Frame):
         sizer_49 = wx.BoxSizer(wx.VERTICAL)
         sizer_3.Add(sizer_49, 1, wx.EXPAND, 0)
 
-        self.button_edit_spreadsheet = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Open Profile Spreadsheet"))
-        self.button_edit_spreadsheet.SetToolTip(_("Opens browser on the selected configuration spreadsheet"))
+        self.button_edit_spreadsheet = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Open Selected Spreadsheet"))
+        self.button_edit_spreadsheet.SetToolTip(_("Opens browser on the selected profile spreadsheet"))
         sizer_49.Add(self.button_edit_spreadsheet, 1, wx.EXPAND, 0)
+        self.button_edit_spreadsheet.Disable()
 
         self.button_download_csv = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Download to QuadStick"))
         self.button_download_csv.SetToolTip(_("Download a game's custom CSV file into the QuadStick"))
         sizer_49.Add(self.button_download_csv, 1, wx.EXPAND, 0)
+        self.button_download_csv.Disable()
 
         self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_8 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("User Custom profiles")), wx.VERTICAL)
@@ -693,8 +695,8 @@ class QuadStickPreferences(wx.Frame):
         sizer_48 = wx.BoxSizer(wx.VERTICAL)
         sizer_8.Add(sizer_48, 1, wx.EXPAND, 0)
 
-        self.button_add_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Add Spreadsheet to Custom Profiles"))
-        self.button_add_user_game.SetToolTip(_("Click button and paste URL for a custom configuration spreadsheet into the dialog box"))
+        self.button_add_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Add Custom Spreadsheet to Profiles"))
+        self.button_add_user_game.SetToolTip(_("Click button and paste URL to add a custom profile spreadsheet into the dialog box"))
         sizer_48.Add(self.button_add_user_game, 1, wx.EXPAND, 0)
 
         self.button_remove_user_game = wx.Button(self.notebook_game_files, wx.ID_ANY, _("Remove Spreadsheet from Custom Profiles"))
@@ -2274,7 +2276,7 @@ class QuadStickPreferences(wx.Frame):
                 try:
                     gp = gps[item]
                     if gp["csv_name"] == "default.csv":
-                        confirm = wx.MessageDialog(self, "Do you want to override the default configuration?", caption="Default Override", style=wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION | wx.STAY_ON_TOP )
+                        confirm = wx.MessageDialog(self, "Do you want to override the default profile?", caption="Default Override", style=wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION | wx.STAY_ON_TOP )
                         result = confirm.ShowModal()
                         if result == wx.ID_YES:
                             id = gp["id"]
@@ -2449,7 +2451,7 @@ class QuadStickPreferences(wx.Frame):
             # get quadstick folder
             qs = find_quadstick_drive()
             # copy csv files to temp folder
-            self.text_ctrl_messages.AppendText("Backup game configuration files\n")
+            self.text_ctrl_messages.AppendText("Backup game profile spreadsheets\n")
             csv_file_list = list_quadstick_csv_files(self)
             # give prefs.csv file special handling if PS4 boot mode enabled
             try:
@@ -2783,6 +2785,8 @@ class QuadStickPreferences(wx.Frame):
     def GameListSelected(self, event):  # wxGlade: QuadStickPreferences.<event_handler>
         # save last selected game for Edit or Download button action
         self._last_game_list_selected = event.GetEventObject()
+        #self.button_download_csv.Enable()
+        self.button_edit_spreadsheet.Enable()
         print("Event handler 'GameListSelected'")
         # deselect any items in the other list
         if self._last_game_list_selected == self.online_game_files_list:
@@ -2791,13 +2795,13 @@ class QuadStickPreferences(wx.Frame):
             self.button_delete_csv.Disable()
             self.button_remove_user_game.Disable()
             self.button_load_and_run.Disable()
-            self.button_download_csv.Enable()
+            #self.button_download_csv.Enable()
 
         elif self._last_game_list_selected == self.list_box_csv_files:
             self._deselect_list(self.user_game_files_list)
             self._deselect_list(self.online_game_files_list)
             self.button_remove_user_game.Disable()
-            self.button_download_csv.Enable()
+            #self.button_download_csv.Enable()F
 
         elif self._last_game_list_selected == self.user_game_files_list:
             self._deselect_list(self.online_game_files_list)
@@ -2805,7 +2809,7 @@ class QuadStickPreferences(wx.Frame):
             self.button_delete_csv.Disable()
             self.button_remove_user_game.Enable()
             self.button_load_and_run.Disable()
-            self.button_download_csv.Enable()
+            #self.button_download_csv.Enable()
         event.Skip()
     def _deselect_list(self, list):
         item = list.GetFirstSelected()
@@ -2899,6 +2903,7 @@ class QuadStickPreferences(wx.Frame):
         usb_comm = int(preferences.get('enable_usb_comm', defaults['enable_usb_comm'])) > 0
         if (d and usb_comm) or ( preferences.get('bluetooth_device_mode') == 'ssp' ) or (self.microterm and self.microterm.serial): 
             self.button_load_and_run.Enable()
+            self.button_download_csv.Enable()
         self.button_delete_csv.Enable()
         self.GameListSelected(event) #event.Skip()
         
