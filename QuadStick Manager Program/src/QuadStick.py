@@ -584,6 +584,8 @@ class QuadStickPreferences(wx.Frame):
         self.notebook = wx.Notebook(self, wx.ID_ANY, style=0)
         self.notebook.SetMinSize((-1, 500))
         self.notebook.SetFont(self.biggerfont)
+        self.notebook.SetPadding(wx.Size(25, 3))
+
         sizer_2.Add(self.notebook, 4, wx.EXPAND, 0)
 
         self.notebook_game_files = wx.Panel(self.notebook, wx.ID_ANY)
@@ -591,6 +593,8 @@ class QuadStickPreferences(wx.Frame):
         self.notebook.AddPage(self.notebook_game_files, _("Game Files"))
 
         sizer_22 = wx.BoxSizer(wx.HORIZONTAL)
+        # sizer_22.Add(0, 500, 0)
+        # sizer_22.Add(500, 0, 0)
         
         self.notebook_game_files.SetFont(self.boldBiggerFont)
         sizer_23 = wx.StaticBoxSizer(wx.StaticBox(self.notebook_game_files, wx.ID_ANY, _("In QuadStick")), wx.VERTICAL)
