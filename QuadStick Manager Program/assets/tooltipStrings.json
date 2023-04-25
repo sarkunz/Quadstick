@@ -1,6 +1,6 @@
 {
-    "QuadstickProfileSwitch": "To activate a configuration file, start with a long sip on the side tube. When the purple leds start flashing, move the joystick right or left to select the desired file. Press the Lip button to select file.",
-    "QuadstickProfiles": "Profiles downloaded to Quadstick.\nHit 'See Profile List and Info' to view profile configurations",
+    "QuadstickProfileSwitch": "To activate a profile, start with a long sip on the side tube. When the purple leds start flashing, move the joystick right or left to select the desired file. Press the Lip button to select file.",
+    "QuadstickProfiles": "Profiles downloaded to Quadstick.\nHit 'See Profile List and Info' for information on how to locate and switch profiles",
     "UserProfiles": "Double click CSV to open in Google Drive and edit.\nDrag files over to download to Quadstick.",
     "FactoryProfiles" : "Double click CSV to open in Google Drive, then copy and edit it.\nDrag files over to download to Quadstick.",
     "stringName": "strText"

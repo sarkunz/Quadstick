@@ -4,13 +4,13 @@ FILE_LIST_HTML_HEADER = """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "ht
 <html>
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <title>QuadStick File Selector</title>
+  <title>QuadStick Profile Selector</title>
 </head>
 <body>
-<div style="text-align: center;">QuadStick File Selector.<br>
+<div style="text-align: center;">QuadStick Profile Selector.<br>
 </div>
 <br>
-<div style="text-align: center;">To activate a configuration file, start with a long sip on the side tube.
+<div style="text-align: center;">To activate a profile, start with a long sip on the side tube.
 When the purple leds start flashing, move the joystick right or left to
 select the desired file. Press the Lip button to select file.<br>
 </div>
@@ -21,7 +21,7 @@ select the desired file. Press the Lip button to select file.<br>
       <td style="width: 110px; text-align: center;"><span style="font-weight: bold;">LED Pattern</span></td>
       <td style="width: 50px; text-align: center;"><span style="font-weight: bold;">File Number</span></td>
       <td style="width: 150px;"><span style="font-weight: bold;">CSV Filename</span></td>
-      <td style="width: 400px;"><span style="font-weight: bold;">Configuration Filename</span></td>
+      <td style="width: 400px;"><span style="font-weight: bold;">Profile Name</span></td>
     </tr>
 """
 
@@ -334,7 +334,7 @@ for i in range(maxPatterns):
    if((i >= 9 and i < 14) or (i >= 19 and i < 24)): pat[-1] = "blue"
    if((i >= 14 and i < 19) ): pat[-1] = "red "
 
-   LED_PATTERN[i+1] = "".join(['<img src=".../assets/img/' + color + '.svg">' for color in pat]) #keeping 1-indexing support
+   LED_PATTERN[i+1] = "".join(['<img src="' + color + '.svg">' for color in pat]) #keeping 1-indexing support
 
 # LED_PATTERN = { #NO
 #     1:  '<img src=".../assets/img/purple.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg"><img src=".../assets/img/grey.svg">',
